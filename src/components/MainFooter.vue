@@ -10,4 +10,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+footer {
+  padding: 2rem;
+  background-color: var(--secondary-background-color);
+}
+</style>

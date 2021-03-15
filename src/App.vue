@@ -1,20 +1,21 @@
 <template>
-  <MainHeader />
-  <MainContent />
-  <MainFooter />
+  <MainLayout>
+    <ArtistInfo />
+    <MixList />
+  </MainLayout>
 </template>
 
 <script>
-import MainHeader from './components/MainHeader';
-import MainContent from './components/MainContent';
-import MainFooter from './components/MainFooter';
+import MainLayout from './components/MainLayout';
+import ArtistInfo from './components/ArtistInfo';
+import MixList from './components/MixList';
 
 export default {
   name: 'App',
   components: {
-    MainHeader,
-    MainContent,
-    MainFooter,
+    MainLayout,
+    ArtistInfo,
+    MixList,
   },
 };
 </script>

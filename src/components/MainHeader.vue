@@ -10,4 +10,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+header {
+  text-align: center;
+  padding: 0.5rem;
+}
+</style>
