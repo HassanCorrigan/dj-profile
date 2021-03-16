@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'MixListItem',
+  name: 'AudioListItem',
   props: {
     id: Number,
     title: String,
@@ -25,10 +25,11 @@ export default {
 
 <style scoped>
 .card {
-  margin: 1rem 0;
+  margin: 2rem 0;
 }
 .audio-player {
   margin: 0.5rem 0;
+  width: 100%;
 }
 .metadata {
   padding: 0.5rem 0;

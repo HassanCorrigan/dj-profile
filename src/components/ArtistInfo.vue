@@ -1,14 +1,20 @@
 <template>
   <section class="info">
     <div class="card">
-      <img class="logo" src="../assets/logo.png" alt="DJ Logo" />
+      <img
+        @click="animateLogo"
+        class="logo"
+        :data-animate="animate"
+        src="../assets/logo.png"
+        alt="DJ Logo"
+      />
       <p class="name">DJ Name</p>
       <p class="tagline">A personalised tagline</p>
 
       <div class="metadata">
-        <p>10 Mixes</p>
+        <p>{{ numberOfMixes }} Mixes</p>
         <span>/</span>
-        <p>3 Songs</p>
+        <p>{{ numberOfSongs }} Songs</p>
       </div>
 
       <div class="social-networks"></div>
@@ -19,6 +25,21 @@
 <script>
 export default {
   name: 'ArtistInfo',
+  data() {
+    return { animate: false };
+  },
+  props: {
+    numberOfMixes: Number,
+    numberOfSongs: Number,
+  },
+  methods: {
+    animateLogo() {
+      this.animate = !this.animate;
+      setTimeout(() => {
+        this.animate = false;
+      }, 1000);
+    },
+  },
 };
 </script>
 
@@ -27,11 +48,20 @@ section.info {
   margin-top: 7.5rem;
   padding: 2rem;
 }
+.card {
+  max-width: 50rem;
+  margin: auto;
+}
 .logo {
   width: 15rem;
   margin-top: -9rem;
   border-radius: 50%;
   padding: 0.5rem;
+  cursor: pointer;
+  background-color: var(--secondary-background-color);
+}
+.logo[data-animate='true'] {
+  animation: animateLogo 1s ease-in-out 0s infinite normal forwards;
 }
 .card {
   text-align: center;
@@ -53,5 +83,16 @@ section.info {
 .metadata p {
   display: inline;
   padding: 0 1rem;
+}
+</style>
+
+<style>
+@keyframes animateLogo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
