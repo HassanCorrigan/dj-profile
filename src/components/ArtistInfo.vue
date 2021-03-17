@@ -5,19 +5,17 @@
         @click="animateLogo"
         class="logo"
         :data-animate="animate"
-        src="../assets/logo.png"
+        src="../assets/vinyl.svg"
         alt="DJ Logo"
       />
-      <p class="name">DJ Name</p>
-      <p class="tagline">A personalised tagline</p>
+      <p class="name">{{ name }}</p>
+      <p class="tagline">{{ tagline }}</p>
 
       <div class="metadata">
         <p>{{ numberOfMixes }} Mixes</p>
         <span>/</span>
         <p>{{ numberOfSongs }} Songs</p>
       </div>
-
-      <div class="social-networks"></div>
     </div>
   </section>
 </template>
@@ -29,15 +27,14 @@ export default {
     return { animate: false };
   },
   props: {
+    name: String,
+    tagline: String,
     numberOfMixes: Number,
     numberOfSongs: Number,
   },
   methods: {
     animateLogo() {
       this.animate = !this.animate;
-      setTimeout(() => {
-        this.animate = false;
-      }, 1000);
     },
   },
 };
@@ -61,7 +58,7 @@ section.info {
   background-color: var(--secondary-background-color);
 }
 .logo[data-animate='true'] {
-  animation: animateLogo 1s ease-in-out 0s infinite normal forwards;
+  animation: animateLogo 1s linear 0s infinite normal forwards;
 }
 .card {
   text-align: center;

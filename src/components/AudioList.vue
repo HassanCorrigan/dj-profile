@@ -6,6 +6,7 @@
       :key="index"
       :title="audio.title"
       :genres="audio.genres"
+      :url="audio.url"
     />
   </section>
 </template>

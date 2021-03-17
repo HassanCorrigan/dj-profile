@@ -1,6 +1,11 @@
 <template>
   <MainLayout>
-    <ArtistInfo :numberOfMixes="mixes.length" :numberOfSongs="songs.length" />
+    <ArtistInfo
+      :name="name"
+      :tagline="tagline"
+      :numberOfMixes="mixes.length"
+      :numberOfSongs="songs.length"
+    />
     <AudioList heading="Recent Mixes" :audioList="mixes" />
     <AudioList heading="Recent Songs" :audioList="songs" />
   </MainLayout>
@@ -10,6 +15,7 @@
 import MainLayout from './components/MainLayout';
 import ArtistInfo from './components/ArtistInfo';
 import AudioList from './components/AudioList';
+import { name, tagline, mixes, songs } from './data.json';
 
 export default {
   name: 'App',
@@ -19,22 +25,7 @@ export default {
     AudioList,
   },
   data() {
-    return {
-      mixes: [
-        { title: 'Mix 1', genres: ['House', "90's", 'Oldskool'] },
-        { title: 'Mix 2', genres: ['Techno', 'Trance'] },
-        { title: 'Mix 3', genres: ['Pop', 'Noughties', 'Hits'] },
-      ],
-      songs: [
-        { title: 'Song 1', genres: ["90's", 'Oldskool'] },
-        { title: 'Song 2', genres: ['Tech', 'House'] },
-        { title: 'Song 3', genres: ['Pop', 'Hits'] },
-        { title: 'Song 4', genres: ['Noughties', 'Alternative'] },
-        { title: 'Song 5', genres: ['Pop', 'Hits'] },
-      ],
-    };
+    return { name, tagline, mixes, songs };
   },
 };
 </script>
-
-<style></style>

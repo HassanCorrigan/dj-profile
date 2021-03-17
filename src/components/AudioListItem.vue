@@ -2,7 +2,7 @@
   <div class="card">
     <p class="title">{{ title }}</p>
     <audio class="audio-player" controls>
-      <source src="#" type="audio/mpeg" />
+      <source :src="url" type="audio/mpeg" />
     </audio>
     <div class="metadata">
       <span class="genre" v-for="(genre, index) in genres" :key="index">{{
@@ -19,6 +19,7 @@ export default {
     id: Number,
     title: String,
     genres: Array,
+    url: String,
   },
 };
 </script>
@@ -27,12 +28,15 @@ export default {
 .card {
   margin: 2rem 0;
 }
-.audio-player {
-  margin: 0.5rem 0;
-  width: 100%;
+.title {
+  font-weight: 400;
 }
-.metadata {
-  padding: 0.5rem 0;
+.audio-player {
+  margin: 1rem 0;
+  width: 100%;
+  outline: none;
+  border-radius: var(--border-radius);
+  background-color: rgb(241, 241, 241);
 }
 .metadata .genre {
   display: inline-block;
