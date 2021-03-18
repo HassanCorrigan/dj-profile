@@ -35,8 +35,6 @@ export default {
   margin: 1rem 0;
   width: 100%;
   outline: none;
-  border-radius: var(--border-radius);
-  background-color: rgb(241, 241, 241);
 }
 .metadata .genre {
   display: inline-block;

@@ -37,6 +37,20 @@ export default {
       this.animate = !this.animate;
     },
   },
+  mounted() {
+    /** Checks if audio is playing, animates vinyl if playing */
+    this.$nextTick(function() {
+      const allAudio = Array.from(document.querySelectorAll('audio'));
+      allAudio.forEach(el => {
+        el.addEventListener('play', () => {
+          this.animate = !el.paused;
+        });
+        el.addEventListener('pause', () => {
+          this.animate = !el.paused;
+        });
+      });
+    });
+  },
 };
 </script>
 

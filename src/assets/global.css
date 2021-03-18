@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap');
 
 :root {
-  --primary-color: rgb(0, 0, 0);
-  --primary-background-color: rgb(230, 230, 230);
+  --primary-color: rgb(15, 15, 15);
+  --primary-background-color: rgb(235, 235, 235);
+  --secondary-color: rgb(15, 15, 15);
   --secondary-background-color: rgb(255, 255, 255);
   --light-text-color: rgb(82, 82, 82);
   --box-shadow-color: rgb(216, 216, 216);
@@ -36,8 +37,20 @@ h1 {
 }
 
 .card {
+  color: var(--secondary-color);
   background-color: var(--secondary-background-color);
   padding: 1rem;
   border-radius: var(--border-radius);
   box-shadow: 0.1rem 0.1rem 1rem 0.1rem var(--box-shadow-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: rgb(240, 240, 240);
+    --primary-background-color: rgb(4, 4, 4);
+    --secondary-color: rgb(245, 245, 245);
+    --secondary-background-color: rgb(34, 34, 34);
+    --light-text-color: rgb(160, 160, 160);
+    --box-shadow-color: rgb(3, 3, 3);
+  }
 }
