@@ -1,6 +1,8 @@
 <template>
   <div class="audio-player">
-    <button class="play-button">Play</button>
+    <button class="play-button">
+      <img id="btnIcon" src="../assets/play-button.svg" alt="Play Button" />
+    </button>
     <div id="waveform" class="waveform"></div>
   </div>
 </template>
@@ -16,6 +18,7 @@ export default {
   mounted() {
     this.$nextTick(function() {
       const btn = document.querySelector('button');
+      const btnIcon = document.querySelector('#btnIcon');
 
       const wavesurfer = WaveSurfer.create({
         container: '#waveform',
@@ -27,7 +30,9 @@ export default {
         btn.addEventListener('click', e => {
           wavesurfer.playPause();
 
-          e.target.textContent = wavesurfer.isPlaying() ? 'Pause' : 'Play';
+          wavesurfer.isPlaying()
+            ? (btnIcon.src = require(`../assets/pause-button.svg`))
+            : (btnIcon.src = require(`../assets/play-button.svg`));
         });
       });
     });
