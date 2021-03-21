@@ -4,6 +4,7 @@
     <AudioListItem
       v-for="(audio, index) in audioList"
       :key="index"
+      :id="index"
       :title="audio.title"
       :genres="audio.genres"
       :url="audio.url"

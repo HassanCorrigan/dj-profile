@@ -1,9 +1,7 @@
 <template>
   <div class="card">
     <p class="title">{{ title }}</p>
-    <audio class="audio-player" controls>
-      <source :src="url" type="audio/mpeg" />
-    </audio>
+    <AudioPlayer :id="id" :url="url" />
     <div class="metadata">
       <span class="genre" v-for="(genre, index) in genres" :key="index">{{
         genre
@@ -13,6 +11,8 @@
 </template>
 
 <script>
+import AudioPlayer from './AudioPlayer';
+
 export default {
   name: 'AudioListItem',
   props: {
@@ -20,6 +20,9 @@ export default {
     title: String,
     genres: Array,
     url: String,
+  },
+  components: {
+    AudioPlayer,
   },
 };
 </script>

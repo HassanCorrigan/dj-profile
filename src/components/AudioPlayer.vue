@@ -13,6 +13,7 @@ import WaveSurfer from 'wavesurfer.js';
 export default {
   name: 'AudioPlayer',
   props: {
+    id: Number,
     url: String,
   },
   mounted() {
