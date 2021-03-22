@@ -2,15 +2,55 @@
   "name": "DJ Name",
   "tagline": "A personalised tagline",
   "mixes": [
-    { "title": "Mix 1", "genres": ["House", "90's", "Oldskool"], "url": "#" },
-    { "title": "Mix 2", "genres": ["Techno", "Trance"], "url": "#" },
-    { "title": "Mix 3", "genres": ["Pop", "Noughties", "Hits"], "url": "#" }
+    {
+      "title": "Mix 1",
+      "cover": "#",
+      "genres": ["House", "90's", "Oldskool"],
+      "url": "#"
+    },
+    {
+      "title": "Mix 2",
+      "cover": "#",
+      "genres": ["Techno", "Trance"],
+      "url": "#"
+    },
+    {
+      "title": "Mix 3",
+      "cover": "#",
+      "genres": ["Pop", "Noughties", "Hits"],
+      "url": "#"
+    }
   ],
   "songs": [
-    { "title": "Song 1", "genres": ["90's", "Oldskool"], "url": "#" },
-    { "title": "Song 2", "genres": ["Tech", "House"], "url": "#" },
-    { "title": "Song 3", "genres": ["Pop", "Hits"], "url": "#" },
-    { "title": "Song 4", "genres": ["Noughties", "Alternative"], "url": "#" },
-    { "title": "Song 5", "genres": ["Pop", "Hits"], "url": "#" }
+    {
+      "title": "Song 1",
+      "cover": "#",
+      "genres": ["90's", "Oldskool"],
+      "url": "#"
+    },
+    {
+      "title": "Song 2",
+      "cover": "#",
+      "genres": ["Tech", "House"],
+      "url": "#"
+    },
+    {
+      "title": "Song 3",
+      "cover": "#",
+      "genres": ["Pop", "Hits"],
+      "url": "#"
+    },
+    {
+      "title": "Song 4",
+      "cover": "#",
+      "genres": ["Noughties", "Alternative"],
+      "url": "#"
+    },
+    {
+      "title": "Song 5",
+      "cover": "#",
+      "genres": ["Pop", "Hits"],
+      "url": "#"
+    }
   ]
 }

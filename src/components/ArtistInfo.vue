@@ -2,8 +2,8 @@
   <section class="info">
     <div class="card">
       <img
-        @click="animateLogo"
-        class="logo"
+        @click="animateVinyl"
+        class="vinyl"
         :data-animate="animate"
         src="../assets/vinyl.svg"
         alt="DJ Logo"
@@ -33,13 +33,14 @@ export default {
     numberOfSongs: Number,
   },
   methods: {
-    animateLogo() {
+    animateVinyl() {
       this.animate = !this.animate;
     },
   },
   mounted() {
     /** Checks if audio is playing, animates vinyl if playing */
     this.$nextTick(function() {
+      // TODO: Update for new audio player
       const allAudio = Array.from(document.querySelectorAll('audio'));
       allAudio.forEach(el => {
         el.addEventListener('play', () => {
@@ -63,7 +64,7 @@ section.info {
   max-width: 50rem;
   margin: auto;
 }
-.logo {
+.vinyl {
   width: 15rem;
   margin-top: -9rem;
   border-radius: 50%;
@@ -71,8 +72,8 @@ section.info {
   cursor: pointer;
   background-color: var(--secondary-background-color);
 }
-.logo[data-animate='true'] {
-  animation: animateLogo 1s linear 0s infinite normal forwards;
+.vinyl[data-animate='true'] {
+  animation: animateVinyl 1s linear 0s infinite normal forwards;
 }
 .card {
   text-align: center;
@@ -98,7 +99,7 @@ section.info {
 </style>
 
 <style>
-@keyframes animateLogo {
+@keyframes animateVinyl {
   from {
     transform: rotate(0deg);
   }

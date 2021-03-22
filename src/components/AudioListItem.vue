@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <p class="title">{{ title }}</p>
-    <AudioPlayer :id="id" :url="url" />
+    <AudioPlayer :id="generateRandomID()" :cover="cover" :url="url" />
     <div class="metadata">
       <span class="genre" v-for="(genre, index) in genres" :key="index">{{
         genre
@@ -16,13 +16,18 @@ import AudioPlayer from './AudioPlayer';
 export default {
   name: 'AudioListItem',
   props: {
-    id: Number,
     title: String,
+    cover: String,
     genres: Array,
     url: String,
   },
   components: {
     AudioPlayer,
+  },
+  methods: {
+    generateRandomID() {
+      return Math.floor(Math.random() * 10000);
+    },
   },
 };
 </script>
