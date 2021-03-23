@@ -1,7 +1,12 @@
 <template>
   <div class="card">
     <p class="title">{{ title }}</p>
-    <AudioPlayer :id="generateRandomID()" :cover="cover" :url="url" />
+    <AudioPlayer
+      :id="generateRandomID()"
+      :cover="cover"
+      :url="url"
+      @set-is-audio-playing="$emit('set-is-audio-playing', $event)"
+    />
     <div class="metadata">
       <span class="genre" v-for="(genre, index) in genres" :key="index">{{
         genre

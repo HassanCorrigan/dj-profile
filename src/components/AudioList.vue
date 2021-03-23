@@ -8,6 +8,7 @@
       :cover="audio.cover"
       :genres="audio.genres"
       :url="audio.url"
+      @set-is-audio-playing="$emit('set-is-audio-playing', $event)"
     />
   </section>
 </template>

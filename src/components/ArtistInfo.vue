@@ -2,11 +2,10 @@
   <section class="info">
     <div class="card">
       <img
-        @click="animateVinyl"
         class="vinyl"
         :data-animate="animate"
         src="../assets/vinyl.svg"
-        alt="DJ Logo"
+        alt="Vinyl"
       />
       <p class="name">{{ name }}</p>
       <p class="tagline">{{ tagline }}</p>
@@ -23,34 +22,18 @@
 <script>
 export default {
   name: 'ArtistInfo',
-  data() {
-    return { animate: false };
-  },
   props: {
     name: String,
     tagline: String,
     numberOfMixes: Number,
     numberOfSongs: Number,
+    isAudioPlaying: Boolean,
   },
-  methods: {
-    animateVinyl() {
-      this.animate = !this.animate;
-    },
+  data() {
+    return { animate: false };
   },
-  mounted() {
-    /** Checks if audio is playing, animates vinyl if playing */
-    this.$nextTick(function() {
-      // TODO: Update for new audio player
-      const allAudio = Array.from(document.querySelectorAll('audio'));
-      allAudio.forEach(el => {
-        el.addEventListener('play', () => {
-          this.animate = !el.paused;
-        });
-        el.addEventListener('pause', () => {
-          this.animate = !el.paused;
-        });
-      });
-    });
+  updated() {
+    this.animate = this.isAudioPlaying;
   },
 };
 </script>

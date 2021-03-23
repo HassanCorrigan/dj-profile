@@ -5,9 +5,18 @@
       :tagline="tagline"
       :numberOfMixes="mixes.length"
       :numberOfSongs="songs.length"
+      :isAudioPlaying="isAudioPlaying"
     />
-    <AudioList heading="Recent Mixes" :audioList="mixes" />
-    <AudioList heading="Recent Songs" :audioList="songs" />
+    <AudioList
+      heading="Recent Mixes"
+      :audioList="mixes"
+      @set-is-audio-playing="setIsAudioPlaying"
+    />
+    <AudioList
+      heading="Recent Songs"
+      :audioList="songs"
+      @set-is-audio-playing="setIsAudioPlaying"
+    />
   </MainLayout>
 </template>
 
@@ -25,7 +34,12 @@ export default {
     AudioList,
   },
   data() {
-    return { name, tagline, mixes, songs };
+    return { name, tagline, mixes, songs, isAudioPlaying: false };
+  },
+  methods: {
+    setIsAudioPlaying(event) {
+      this.isAudioPlaying = event;
+    },
   },
 };
 </script>

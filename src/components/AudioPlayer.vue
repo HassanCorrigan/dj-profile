@@ -1,6 +1,10 @@
 <template>
   <div class="audio-player">
-    <button class="play-button" :style="{ backgroundImage: `url(${cover})` }">
+    <button
+      id="playBtn"
+      class="play-button"
+      :style="{ backgroundImage: `url(${cover})` }"
+    >
       <img
         id="btnIcon"
         class="play-button-icon"
@@ -29,6 +33,7 @@ export default {
       duration: this.formatTime(0),
     };
   },
+  emits: ['set-is-audio-playing'],
   methods: {
     formatTime(seconds) {
       return new Date(seconds * 1000).toISOString().substr(11, 8);
@@ -36,7 +41,7 @@ export default {
   },
   mounted() {
     this.$nextTick(function() {
-      const btn = document.querySelector('button');
+      const btn = document.querySelector('button#playBtn');
       const btnIcon = document.querySelector('#btnIcon');
 
       /** Create an instance of wavesurfer */
@@ -61,6 +66,9 @@ export default {
           wavesurfer.isPlaying()
             ? (btnIcon.src = require(`../assets/pause-button.svg`))
             : (btnIcon.src = require(`../assets/play-button.svg`));
+
+          /** Emits an event to set a boolean of true or false */
+          this.$emit('set-is-audio-playing', wavesurfer.isPlaying());
         });
 
         /** Set the audio duration */
@@ -75,6 +83,8 @@ export default {
       /** Change back to play button icon after audio ends */
       wavesurfer.on('finish', () => {
         btnIcon.src = require(`../assets/play-button.svg`);
+        /** Emits an event to set a boolean of true or false */
+        this.$emit('set-is-audio-playing', wavesurfer.isPlaying());
       });
     });
   },
