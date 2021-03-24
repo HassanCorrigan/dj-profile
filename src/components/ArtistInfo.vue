@@ -52,7 +52,6 @@ section.info {
   margin-top: -9rem;
   border-radius: 50%;
   padding: 0.5rem;
-  cursor: pointer;
   background-color: var(--secondary-background-color);
 }
 .vinyl[data-animate='true'] {

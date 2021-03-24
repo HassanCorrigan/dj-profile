@@ -1,12 +1,12 @@
 <template>
   <div class="audio-player">
     <button
-      id="playBtn"
+      :id="`button-${id}`"
       class="play-button"
       :style="{ backgroundImage: `url(${cover})` }"
     >
       <img
-        id="btnIcon"
+        :id="`buttonIcon-${id}`"
         class="play-button-icon"
         src="../assets/play-button.svg"
         alt="Play Button"
@@ -41,8 +41,8 @@ export default {
   },
   mounted() {
     this.$nextTick(function() {
-      const btn = document.querySelector('button#playBtn');
-      const btnIcon = document.querySelector('#btnIcon');
+      const btn = document.querySelector(`#button-${this.id}`);
+      const btnIcon = document.querySelector(`#buttonIcon-${this.id}`);
 
       /** Create an instance of wavesurfer */
       const wavesurfer = WaveSurfer.create({
@@ -123,6 +123,9 @@ export default {
   background-color: #fff;
   border-radius: 50%;
   padding: 1rem;
+}
+.play-button-icon:hover {
+  background-color: #eee;
 }
 .waveform {
   width: 100%;
