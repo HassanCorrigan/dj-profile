@@ -1,18 +1,78 @@
 <template>
   <header>
-    <h1>Logo</h1>
+    <div class="card">
+      <img class="profile" :src="photo" alt="Profile Photo" />
+      <h1 class="name">{{ name }}</h1>
+      <p class="tagline">{{ tagline }}</p>
+
+      <div class="metadata">
+        <p>{{ numberOfMixes }} Mixes</p>
+        <span>/</span>
+        <p>{{ numberOfSongs }} Songs</p>
+      </div>
+    </div>
   </header>
 </template>
 
 <script>
 export default {
   name: 'MainHeader',
+  props: {
+    name: String,
+    tagline: String,
+    photo: String,
+    numberOfMixes: Number,
+    numberOfSongs: Number,
+  },
 };
 </script>
 
 <style scoped>
 header {
-  text-align: center;
+  margin-top: 7.5rem;
+  padding: 2rem;
+}
+.card {
+  max-width: 50rem;
+  margin: auto;
+}
+.profile {
+  width: 15rem;
+  margin-top: -9rem;
+  border-radius: 50%;
   padding: 0.5rem;
+  background-color: var(--secondary-background-color);
+}
+.card {
+  text-align: center;
+}
+.name {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1.75rem;
+  padding: 0.5rem 0;
+}
+.tagline {
+  color: var(--light-text-color);
+  padding: 0.5rem 0;
+  font-style: italic;
+}
+.metadata {
+  padding: 0.5rem 0;
+}
+.metadata p {
+  display: inline;
+  padding: 0 1rem;
+}
+</style>
+
+<style>
+@keyframes animateVinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

@@ -120,12 +120,12 @@ export default {
   margin-right: 1rem;
 }
 .play-button-icon {
-  background-color: #fff;
+  background-color: rgb(240, 240, 240);
   border-radius: 50%;
   padding: 1rem;
 }
 .play-button-icon:hover {
-  background-color: #eee;
+  filter: brightness(0.9);
 }
 .waveform {
   width: 100%;

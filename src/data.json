@@ -1,23 +1,24 @@
 {
   "name": "DJ Name",
   "tagline": "A personalised tagline",
+  "photo": "#",
   "mixes": [
     {
       "title": "Mix 1",
       "cover": "#",
-      "genres": ["House", "90's", "Oldskool"],
+      "genres": ["Genre 1", "Genre 2, Genre 3"],
       "url": "#"
     },
     {
       "title": "Mix 2",
       "cover": "#",
-      "genres": ["Techno", "Trance"],
+      "genres": ["Genre 1", "Genre 2, Genre 3"],
       "url": "#"
     },
     {
       "title": "Mix 3",
       "cover": "#",
-      "genres": ["Pop", "Noughties", "Hits"],
+      "genres": ["Genre 1", "Genre 2, Genre 3"],
       "url": "#"
     }
   ],
@@ -25,31 +26,13 @@
     {
       "title": "Song 1",
       "cover": "#",
-      "genres": ["90's", "Oldskool"],
+      "genres": ["Genre 1", "Genre 2"],
       "url": "#"
     },
     {
       "title": "Song 2",
       "cover": "#",
-      "genres": ["Tech", "House"],
-      "url": "#"
-    },
-    {
-      "title": "Song 3",
-      "cover": "#",
-      "genres": ["Pop", "Hits"],
-      "url": "#"
-    },
-    {
-      "title": "Song 4",
-      "cover": "#",
-      "genres": ["Noughties", "Alternative"],
-      "url": "#"
-    },
-    {
-      "title": "Song 5",
-      "cover": "#",
-      "genres": ["Pop", "Hits"],
+      "genres": ["Genre 1", "Genre 2"],
       "url": "#"
     }
   ]

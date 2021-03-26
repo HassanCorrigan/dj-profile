@@ -1,45 +1,31 @@
 <template>
-  <MainLayout>
-    <ArtistInfo
-      :name="name"
-      :tagline="tagline"
-      :numberOfMixes="mixes.length"
-      :numberOfSongs="songs.length"
-      :isAudioPlaying="isAudioPlaying"
-    />
-    <AudioList
-      heading="Recent Mixes"
-      :audioList="mixes"
-      @set-is-audio-playing="setIsAudioPlaying"
-    />
-    <AudioList
-      heading="Recent Songs"
-      :audioList="songs"
-      @set-is-audio-playing="setIsAudioPlaying"
-    />
-  </MainLayout>
+  <MainHeader
+    :name="name"
+    :tagline="tagline"
+    :photo="photo"
+    :numberOfMixes="mixes.length"
+    :numberOfSongs="songs.length"
+  />
+  <AudioList heading="Recent Mixes" :audioList="mixes" />
+  <AudioList heading="Recent Songs" :audioList="songs" />
+  <MainFooter />
 </template>
 
 <script>
-import MainLayout from './components/MainLayout';
-import ArtistInfo from './components/ArtistInfo';
+import MainHeader from './components/MainHeader';
 import AudioList from './components/AudioList';
-import { name, tagline, mixes, songs } from './data.json';
+import MainFooter from './components/MainFooter';
+import { name, tagline, photo, mixes, songs } from './data.json';
 
 export default {
   name: 'App',
   components: {
-    MainLayout,
-    ArtistInfo,
+    MainHeader,
     AudioList,
+    MainFooter,
   },
   data() {
-    return { name, tagline, mixes, songs, isAudioPlaying: false };
-  },
-  methods: {
-    setIsAudioPlaying(event) {
-      this.isAudioPlaying = event;
-    },
+    return { name, tagline, photo, mixes, songs };
   },
 };
 </script>
