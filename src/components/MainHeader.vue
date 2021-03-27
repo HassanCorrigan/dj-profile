@@ -1,7 +1,11 @@
 <template>
   <header>
     <div class="card">
-      <img class="profile" :src="photo" alt="Profile Photo" />
+      <img
+        class="profile"
+        :src="require(`@/assets/${photo}`)"
+        alt="Profile Photo"
+      />
       <h1 class="name">{{ name }}</h1>
       <p class="tagline">{{ tagline }}</p>
 

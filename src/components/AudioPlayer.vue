@@ -1,20 +1,19 @@
 <template>
   <div class="audio-player">
     <button
-      :id="`button-${id}`"
+      @click="handlePlayBtn"
       class="play-button"
       :style="{ backgroundImage: `url(${cover})` }"
     >
       <img
-        :id="`buttonIcon-${id}`"
         class="play-button-icon"
-        src="../assets/play-button.svg"
+        :src="require(`@/assets/${playBtnSrc}`)"
         alt="Play Button"
       />
     </button>
-    <div :id="setID" class="waveform"></div>
+    <div id="waveform" class="waveform"></div>
   </div>
-  <p class="timecode">{{ currentTime }} / {{ duration }}</p>
+  <!-- <p class="timecode">{{ currentTime }} / {{ duration }}</p> -->
 </template>
 
 <script>
@@ -23,74 +22,84 @@ import WaveSurfer from 'wavesurfer.js';
 export default {
   name: 'AudioPlayer',
   props: {
-    id: Number,
+    title: String,
     cover: String,
     url: String,
   },
   data() {
     return {
+      wavesurfer: null,
+      playBtnSrc: 'play-button.svg',
       currentTime: this.formatTime(0),
       duration: this.formatTime(0),
     };
   },
-  emits: ['set-is-audio-playing'],
   methods: {
-    formatTime(seconds) {
-      return new Date(seconds * 1000).toISOString().substr(11, 8);
-    },
-  },
-  mounted() {
-    this.$nextTick(function() {
-      const btn = document.querySelector(`#button-${this.id}`);
-      const btnIcon = document.querySelector(`#buttonIcon-${this.id}`);
-
-      /** Create an instance of wavesurfer */
-      const wavesurfer = WaveSurfer.create({
-        container: `#waveform-${this.id}`,
+    createWaveSurfer() {
+      this.wavesurfer = WaveSurfer.create({
+        container: '#waveform',
         responsive: true,
+        height: 50,
         backend: 'MediaElement',
         progressColor: '#94369f',
         waveColor: '#cc295a',
       });
+    },
+    handlePlayBtn() {
+      const wavesurfer = this.wavesurfer;
 
-      /** Load the audio source */
-      wavesurfer.load(this.url);
+      /** If there is no audio loaded, return */
+      if (wavesurfer === null) {
+        return;
+      }
 
-      /** Wait for the wavesurfer instance to be ready, */
-      wavesurfer.on('ready', () => {
-        /** Add play button event listener */
-        btn.addEventListener('click', e => {
-          wavesurfer.playPause();
+      wavesurfer.playPause();
 
-          /** If audio is playing, display a pause button,  */
-          wavesurfer.isPlaying()
-            ? (btnIcon.src = require(`../assets/pause-button.svg`))
-            : (btnIcon.src = require(`../assets/play-button.svg`));
+      /** If audio is playing, display a pause button,  */
+      this.toggleBtn(wavesurfer.isPlaying());
+    },
+    toggleBtn(playing) {
+      playing
+        ? (this.playBtnSrc = 'pause-button.svg')
+        : (this.playBtnSrc = 'play-button.svg');
+    },
+    formatTime(seconds) {
+      return new Date(seconds * 1000).toISOString().substr(11, 8);
+    },
+  },
+  watch: {
+    url: function(next, previous) {
+      this.$nextTick(function() {
+        /** Create a new instance of wavesurfer */
+        this.createWaveSurfer();
 
-          /** Emits an event to set a boolean of true or false */
-          this.$emit('set-is-audio-playing', wavesurfer.isPlaying());
+        const wavesurfer = this.wavesurfer;
+
+        /** Load the audio source */
+        wavesurfer.load(this.url);
+
+        /** Wait for the wavesurfer instance to be ready, */
+        wavesurfer.on('ready', () => {
+          /** Automatically start playing the audio */
+          wavesurfer.play();
+
+          /** If audio is playing, toggle the button */
+          this.toggleBtn(wavesurfer.isPlaying());
+
+          /** Set the audio duration */
+          this.duration = this.formatTime(wavesurfer.getDuration());
         });
 
-        /** Set the audio duration */
-        this.duration = this.formatTime(wavesurfer.getDuration());
-      });
+        wavesurfer.on('audioprocess', () => {
+          /** Set the current time while the audio is playing */
+          this.currentTime = this.formatTime(wavesurfer.getCurrentTime());
+        });
 
-      wavesurfer.on('audioprocess', () => {
-        /** Set the current time while the audio is playing */
-        this.currentTime = this.formatTime(wavesurfer.getCurrentTime());
+        /** Change back to play button icon after audio ends */
+        wavesurfer.on('finish', () => {
+          this.toggleBtn(wavesurfer.isPlaying());
+        });
       });
-
-      /** Change back to play button icon after audio ends */
-      wavesurfer.on('finish', () => {
-        btnIcon.src = require(`../assets/play-button.svg`);
-        /** Emits an event to set a boolean of true or false */
-        this.$emit('set-is-audio-playing', wavesurfer.isPlaying());
-      });
-    });
-  },
-  computed: {
-    setID() {
-      return `waveform-${this.id}`;
     },
   },
 };
@@ -98,40 +107,37 @@ export default {
 
 <style scoped>
 .audio-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--secondary-background-color);
+  max-height: 6rem;
   display: flex;
   place-items: center;
-  margin: 1rem 0;
+  padding: 1rem;
   overflow: hidden;
 }
 .play-button {
-  width: 12rem;
-  height: 12rem;
-  aspect-ratio: 1/1;
+  width: 6rem;
+  height: 6rem;
   color: var(--secondary-color);
   background-color: var(--primary-background-color);
   border-radius: var(--border-radius);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  font-family: 'Rubik', sans-serif;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  margin-right: 1rem;
 }
 .play-button-icon {
   background-color: rgb(240, 240, 240);
   border-radius: 50%;
-  padding: 1rem;
-}
-.play-button-icon:hover {
-  filter: brightness(0.9);
+  padding: 0.75rem;
 }
 .waveform {
   width: 100%;
-  height: 12rem;
+  max-height: 10rem;
   border-radius: var(--border-radius);
-  overflow: hidden;
+  padding: 0 0.5rem;
 }
 .timecode {
   float: right;

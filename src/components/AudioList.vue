@@ -8,6 +8,7 @@
       :cover="audio.cover"
       :genres="audio.genres"
       :url="audio.url"
+      @set-currently-playing="$emit('set-currently-playing', $event)"
     />
   </section>
 </template>
