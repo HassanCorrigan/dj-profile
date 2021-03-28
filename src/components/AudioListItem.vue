@@ -53,6 +53,7 @@ export default {
   methods: {
     downloadAudio() {
       console.log('Downloading:', this.url);
+      alert('Downloads coming soon...');
     },
   },
 };

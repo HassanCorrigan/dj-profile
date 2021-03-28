@@ -11,9 +11,12 @@
         alt="Play Button"
       />
     </button>
-    <div id="waveform" class="waveform"></div>
+    <div class="player">
+      <p class="title">{{ title }}</p>
+      <div id="waveform" class="waveform"></div>
+      <p class="timecode">{{ currentTime }} / {{ duration }}</p>
+    </div>
   </div>
-  <!-- <p class="timecode">{{ currentTime }} / {{ duration }}</p> -->
 </template>
 
 <script>
@@ -39,7 +42,7 @@ export default {
       this.wavesurfer = WaveSurfer.create({
         container: '#waveform',
         responsive: true,
-        height: 50,
+        height: 30,
         backend: 'MediaElement',
         progressColor: '#94369f',
         waveColor: '#cc295a',
@@ -56,9 +59,9 @@ export default {
       wavesurfer.playPause();
 
       /** If audio is playing, display a pause button,  */
-      this.toggleBtn(wavesurfer.isPlaying());
+      this.toggleBtnIcon(wavesurfer.isPlaying());
     },
-    toggleBtn(playing) {
+    toggleBtnIcon(playing) {
       playing
         ? (this.playBtnSrc = 'pause-button.svg')
         : (this.playBtnSrc = 'play-button.svg');
@@ -70,6 +73,9 @@ export default {
   watch: {
     url: function(next, previous) {
       this.$nextTick(function() {
+        /** Reset by removing the old waveform if one exists */
+        document.querySelector('#waveform').innerHTML = '';
+
         /** Create a new instance of wavesurfer */
         this.createWaveSurfer();
 
@@ -84,7 +90,7 @@ export default {
           wavesurfer.play();
 
           /** If audio is playing, toggle the button */
-          this.toggleBtn(wavesurfer.isPlaying());
+          this.toggleBtnIcon(wavesurfer.isPlaying());
 
           /** Set the audio duration */
           this.duration = this.formatTime(wavesurfer.getDuration());
@@ -97,7 +103,7 @@ export default {
 
         /** Change back to play button icon after audio ends */
         wavesurfer.on('finish', () => {
-          this.toggleBtn(wavesurfer.isPlaying());
+          this.toggleBtnIcon(wavesurfer.isPlaying());
         });
       });
     },
@@ -112,15 +118,14 @@ export default {
   left: 0;
   right: 0;
   background-color: var(--secondary-background-color);
-  max-height: 6rem;
   display: flex;
   place-items: center;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   overflow: hidden;
 }
 .play-button {
-  width: 6rem;
-  height: 6rem;
+  min-width: 6rem;
+  min-height: 6rem;
   color: var(--secondary-color);
   background-color: var(--primary-background-color);
   border-radius: var(--border-radius);
@@ -133,13 +138,21 @@ export default {
   border-radius: 50%;
   padding: 0.75rem;
 }
+.player {
+  width: 100%;
+  margin-left: 0.75rem;
+}
+.title {
+  font-weight: 400;
+  line-height: 1.5rem;
+}
 .waveform {
   width: 100%;
-  max-height: 10rem;
+  height: 3rem;
   border-radius: var(--border-radius);
-  padding: 0 0.5rem;
 }
 .timecode {
   float: right;
+  line-height: 1.5rem;
 }
 </style>
