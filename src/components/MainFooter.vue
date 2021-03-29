@@ -14,5 +14,6 @@ export default {
 footer {
   padding: 2rem;
   background-color: var(--secondary-background-color);
+  margin: 2rem 0;
 }
 </style>

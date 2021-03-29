@@ -1,39 +1,44 @@
 {
   "name": "DJ Name",
   "tagline": "A personalised tagline",
-  "photo": "#",
+  "photo": "",
   "mixes": [
     {
       "title": "Mix 1",
-      "cover": "#",
+      "cover": "",
       "genres": ["Genre 1", "Genre 2, Genre 3"],
-      "url": "#"
+      "url": "",
+      "peaks": ""
     },
     {
       "title": "Mix 2",
-      "cover": "#",
+      "cover": "",
       "genres": ["Genre 1", "Genre 2, Genre 3"],
-      "url": "#"
+      "url": "",
+      "peaks": ""
     },
     {
       "title": "Mix 3",
-      "cover": "#",
+      "cover": "",
       "genres": ["Genre 1", "Genre 2, Genre 3"],
-      "url": "#"
+      "url": "",
+      "peaks": ""
     }
   ],
   "songs": [
     {
       "title": "Song 1",
-      "cover": "#",
+      "cover": "",
       "genres": ["Genre 1", "Genre 2"],
-      "url": "#"
+      "url": "",
+      "peaks": ""
     },
     {
       "title": "Song 2",
-      "cover": "#",
+      "cover": "",
       "genres": ["Genre 1", "Genre 2"],
-      "url": "#"
+      "url": "",
+      "peaks": ""
     }
   ]
 }

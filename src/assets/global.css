@@ -5,6 +5,7 @@
   --primary-background-color: rgb(235, 235, 235);
   --secondary-color: rgb(15, 15, 15);
   --secondary-background-color: rgb(255, 255, 255);
+  --transparent-background-color: rgba(255, 255, 255, 0.75);
   --light-text-color: rgb(82, 82, 82);
   --box-shadow-color: rgb(216, 216, 216);
 
@@ -35,7 +36,6 @@ h1 {
   font-size: 2.5rem;
   font-weight: 400;
 }
-
 button {
   border: none;
   outline: none;
@@ -60,6 +60,7 @@ button:hover {
     --primary-background-color: rgb(4, 4, 4);
     --secondary-color: rgb(245, 245, 245);
     --secondary-background-color: rgb(34, 34, 34);
+    --transparent-background-color: rgba(34, 34, 34, 0.75);
     --light-text-color: rgb(160, 160, 160);
     --box-shadow-color: rgb(3, 3, 3);
   }

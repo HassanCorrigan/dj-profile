@@ -1,11 +1,7 @@
 <template>
   <header>
     <div class="card">
-      <img
-        class="profile"
-        :src="require(`@/assets/${photo}`)"
-        alt="Profile Photo"
-      />
+      <img class="profile" :src="profilePhoto" alt="Profile Photo" />
       <h1 class="name">{{ name }}</h1>
       <p class="tagline">{{ tagline }}</p>
 
@@ -27,6 +23,12 @@ export default {
     photo: String,
     numberOfMixes: Number,
     numberOfSongs: Number,
+  },
+  computed: {
+    /** Return defined photo, otherwise return a fallback */
+    profilePhoto() {
+      return this.photo ? this.photo : require(`@/assets/vinyl.svg`);
+    },
   },
 };
 </script>

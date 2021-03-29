@@ -4,6 +4,7 @@
       @click="handlePlayBtn"
       class="play-button"
       :style="{ backgroundImage: `url(${cover})` }"
+      title="Play/Pause"
     >
       <img
         class="play-button-icon"
@@ -12,7 +13,9 @@
       />
     </button>
     <div class="player">
-      <p class="title">{{ title }}</p>
+      <p class="title">
+        {{ title }}
+      </p>
       <div id="waveform" class="waveform"></div>
       <p class="timecode">{{ currentTime }} / {{ duration }}</p>
     </div>
@@ -28,6 +31,7 @@ export default {
     title: String,
     cover: String,
     url: String,
+    peaks: String,
   },
   data() {
     return {
@@ -39,6 +43,10 @@ export default {
   },
   methods: {
     createWaveSurfer() {
+      /** Reset by removing the old wavesurfer if one exists */
+      this.wavesurfer !== null && this.wavesurfer.destroy();
+
+      /** Create a new wavesurfer instance */
       this.wavesurfer = WaveSurfer.create({
         container: '#waveform',
         responsive: true,
@@ -46,6 +54,7 @@ export default {
         backend: 'MediaElement',
         progressColor: '#94369f',
         waveColor: '#cc295a',
+        removeMediaElementOnDestroy: true,
       });
     },
     handlePlayBtn() {
@@ -56,13 +65,14 @@ export default {
         return;
       }
 
+      /** Toggle play/pause */
       wavesurfer.playPause();
 
-      /** If audio is playing, display a pause button,  */
-      this.toggleBtnIcon(wavesurfer.isPlaying());
+      /** Toggle the play button */
+      this.toggleBtnIcon();
     },
-    toggleBtnIcon(playing) {
-      playing
+    toggleBtnIcon() {
+      this.wavesurfer.isPlaying()
         ? (this.playBtnSrc = 'pause-button.svg')
         : (this.playBtnSrc = 'play-button.svg');
     },
@@ -73,9 +83,6 @@ export default {
   watch: {
     url: function(next, previous) {
       this.$nextTick(function() {
-        /** Reset by removing the old waveform if one exists */
-        document.querySelector('#waveform').innerHTML = '';
-
         /** Create a new instance of wavesurfer */
         this.createWaveSurfer();
 
@@ -84,14 +91,14 @@ export default {
         /** Load the audio source */
         wavesurfer.load(this.url);
 
+        /** Automatically start playing the audio */
+        wavesurfer.play();
+
+        /** Toggle the play button */
+        this.toggleBtnIcon();
+
         /** Wait for the wavesurfer instance to be ready, */
         wavesurfer.on('ready', () => {
-          /** Automatically start playing the audio */
-          wavesurfer.play();
-
-          /** If audio is playing, toggle the button */
-          this.toggleBtnIcon(wavesurfer.isPlaying());
-
           /** Set the audio duration */
           this.duration = this.formatTime(wavesurfer.getDuration());
         });
@@ -103,7 +110,7 @@ export default {
 
         /** Change back to play button icon after audio ends */
         wavesurfer.on('finish', () => {
-          this.toggleBtnIcon(wavesurfer.isPlaying());
+          this.toggleBtnIcon();
         });
       });
     },
@@ -117,11 +124,12 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--secondary-background-color);
   display: flex;
   place-items: center;
-  padding: 0.5rem 1rem;
-  overflow: hidden;
+  background-color: var(--transparent-background-color);
+  backdrop-filter: blur(0.5rem);
+  padding: 1.5rem 1rem;
+  z-index: 3;
 }
 .play-button {
   min-width: 6rem;
@@ -148,11 +156,12 @@ export default {
 }
 .waveform {
   width: 100%;
-  height: 3rem;
+  min-height: 3rem;
   border-radius: var(--border-radius);
 }
 .timecode {
-  float: right;
+  color: var(--light-text-color);
+  text-align: right;
   line-height: 1.5rem;
 }
 </style>

@@ -19,8 +19,9 @@
   <MainFooter />
   <AudioPlayer
     :title="currentlyPlaying.title"
-    :url="currentlyPlaying.url"
     :cover="currentlyPlaying.cover"
+    :url="currentlyPlaying.url"
+    :peaks="currentlyPlaying.peaks"
   />
 </template>
 
@@ -48,8 +49,9 @@ export default {
       songs,
       currentlyPlaying: {
         title: '',
-        url: '#',
-        cover: '#',
+        url: '',
+        cover: '',
+        peaks: '',
       },
     };
   },
@@ -59,6 +61,7 @@ export default {
         title: audio.title,
         url: audio.url,
         cover: audio.cover,
+        peaks: audio.peaks,
       };
     },
   },

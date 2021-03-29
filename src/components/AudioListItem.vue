@@ -2,13 +2,14 @@
   <div class="card">
     <button
       class="play-button"
-      :style="{ backgroundImage: `url(${cover})` }"
-      @click="$emit('set-currently-playing', { title, cover, url })"
+      :style="{ backgroundImage: `url(${coverPhoto})` }"
+      @click="$emit('set-currently-playing', { title, cover, url, peaks })"
+      title="Play"
     >
       <img
         id="playBtnIcon"
         class="play-button-icon"
-        src="../assets/play-button.svg"
+        src="@/assets/play-button.svg"
         alt="Play Button"
       />
     </button>
@@ -49,11 +50,30 @@ export default {
     cover: String,
     genres: Array,
     url: String,
+    peaks: String,
+  },
+  computed: {
+    /** Return defined photo, otherwise return a fallback */
+    coverPhoto() {
+      return this.cover ? this.cover : require(`@/assets/vinyl.svg`);
+    },
   },
   methods: {
     downloadAudio() {
-      console.log('Downloading:', this.url);
-      alert('Downloads coming soon...');
+      /** Construct the download url */
+      const baseURL = 'https://www.dropbox.com';
+      const { pathname } = new URL(this.url);
+
+      const href = `${baseURL}${pathname}`;
+
+      /** Simulate a user clicking a download link */
+      const anchor = document.createElement('a');
+      anchor.href = href;
+      anchor.download = href;
+      anchor.target = '_blank';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
     },
   },
 };
@@ -66,8 +86,8 @@ export default {
   align-items: center;
 }
 .play-button {
-  width: 8rem;
-  height: 8rem;
+  min-width: 8rem;
+  min-height: 8rem;
   border-radius: var(--border-radius);
 
   background-repeat: no-repeat;
