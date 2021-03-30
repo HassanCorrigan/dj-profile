@@ -6,9 +6,9 @@
       <p class="tagline">{{ tagline }}</p>
 
       <div class="metadata">
-        <p>{{ numberOfMixes }} Mixes</p>
+        <p>{{ mixesCount }} Mixes</p>
         <span>/</span>
-        <p>{{ numberOfSongs }} Songs</p>
+        <p>{{ songsCount }} Songs</p>
       </div>
     </div>
   </header>
@@ -17,12 +17,16 @@
 <script>
 export default {
   name: 'MainHeader',
-  props: {
-    name: String,
-    tagline: String,
-    photo: String,
-    numberOfMixes: Number,
-    numberOfSongs: Number,
+  data() {
+    const { name, tagline, photo } = this.$store.state;
+    const { mixesCount, songsCount } = this.$store.getters;
+    return {
+      name,
+      tagline,
+      photo,
+      mixesCount,
+      songsCount,
+    };
   },
   computed: {
     /** Return defined photo, otherwise return a fallback */

@@ -1,5 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import store from './store.js';
 import './assets/global.css';
 
-createApp(App).mount('#app');
+createApp(App)
+  .use(store)
+  .mount('#app');

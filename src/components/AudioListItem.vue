@@ -3,13 +3,13 @@
     <button
       class="play-button"
       :style="{ backgroundImage: `url(${coverPhoto})` }"
-      @click="$emit('set-currently-playing', { title, cover, url, peaks })"
+      @click="setCurrentlyPlaying"
       title="Play"
     >
       <img
         id="playBtnIcon"
         class="play-button-icon"
-        src="@/assets/play-button.svg"
+        :src="btnIconSrc"
         alt="Play Button"
       />
     </button>
@@ -57,8 +57,25 @@ export default {
     coverPhoto() {
       return this.cover ? this.cover : require(`@/assets/vinyl.svg`);
     },
+    btnIconSrc() {
+      /** Check if audio is equal to currently playing audio */
+      const isPlaying = this.url === this.$store.state.currentlyPlaying.url;
+
+      return isPlaying
+        ? require('@/assets/equalizer.gif')
+        : require('@/assets/play-button.svg');
+    },
   },
   methods: {
+    /** Set currently plaing in the app store */
+    setCurrentlyPlaying() {
+      this.$store.commit('setCurrentlyPlaying', {
+        title: this.title,
+        cover: this.cover,
+        url: this.url,
+        peaks: this.peaks,
+      });
+    },
     downloadAudio() {
       /** Construct the download url */
       const baseURL = 'https://www.dropbox.com';
@@ -98,6 +115,8 @@ export default {
   background-color: rgb(240, 240, 240);
   border-radius: 50%;
   padding: 0.75rem;
+  width: 2.4rem;
+  height: 2.4rem;
 }
 .details {
   padding: 0 1rem;

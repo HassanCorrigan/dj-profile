@@ -1,9 +1,9 @@
 <template>
-  <div class="audio-player">
+  <div class="audio-player" :style="`display: ${showPlayer};`">
     <button
       @click="handlePlayBtn"
       class="play-button"
-      :style="{ backgroundImage: `url(${cover})` }"
+      :style="{ backgroundImage: `url(${currentlyPlaying.cover})` }"
       title="Play/Pause"
     >
       <img
@@ -13,9 +13,7 @@
       />
     </button>
     <div class="player">
-      <p class="title">
-        {{ title }}
-      </p>
+      <p class="title">{{ currentlyPlaying.title }}</p>
       <div id="waveform" class="waveform"></div>
       <p class="timecode">{{ currentTime }} / {{ duration }}</p>
     </div>
@@ -27,12 +25,6 @@ import WaveSurfer from 'wavesurfer.js';
 
 export default {
   name: 'AudioPlayer',
-  props: {
-    title: String,
-    cover: String,
-    url: String,
-    peaks: String,
-  },
   data() {
     return {
       wavesurfer: null,
@@ -80,8 +72,23 @@ export default {
       return new Date(seconds * 1000).toISOString().substr(11, 8);
     },
   },
+  computed: {
+    currentlyPlaying() {
+      const { title, cover, url, peaks } = this.$store.state.currentlyPlaying;
+      return {
+        title,
+        cover,
+        url,
+        peaks,
+      };
+    },
+    /** Hides audio player if no track is queued */
+    showPlayer() {
+      return this.wavesurfer !== null ? 'flex' : 'none';
+    },
+  },
   watch: {
-    url: function(next, previous) {
+    currentlyPlaying: function(next, previous) {
       this.$nextTick(function() {
         /** Create a new instance of wavesurfer */
         this.createWaveSurfer();
@@ -89,7 +96,7 @@ export default {
         const wavesurfer = this.wavesurfer;
 
         /** Load the audio source */
-        wavesurfer.load(this.url);
+        wavesurfer.load(this.currentlyPlaying.url);
 
         /** Automatically start playing the audio */
         wavesurfer.play();

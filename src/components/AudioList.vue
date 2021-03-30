@@ -9,7 +9,6 @@
       :genres="audio.genres"
       :url="audio.url"
       :peaks="audio.peaks"
-      @set-currently-playing="$emit('set-currently-playing', $event)"
     />
   </section>
 </template>
