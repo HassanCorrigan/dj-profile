@@ -1,5 +1,5 @@
 <template>
-  <div class="audio-player" :style="`display: ${showPlayer};`">
+  <div class="audio-player" v-show="showPlayer">
     <button
       @click="handlePlayBtn"
       class="play-button"
@@ -84,7 +84,7 @@ export default {
     },
     /** Hides audio player if no track is queued */
     showPlayer() {
-      return this.wavesurfer !== null ? 'flex' : 'none';
+      return this.wavesurfer !== null;
     },
   },
   watch: {

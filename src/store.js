@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { name, tagline, photo, mixes, songs } from './data.json';
+import { name, tagline, photo, social, mixes, songs } from './data.json';
 
 const store = createStore({
   state() {
@@ -7,6 +7,7 @@ const store = createStore({
       name,
       tagline,
       photo,
+      social,
       mixes,
       songs,
       currentlyPlaying: {

@@ -1,7 +1,12 @@
 {
-  "name": "DJ Name",
+  "name": "DJ/Artist Name",
   "tagline": "A personalised tagline",
   "photo": "",
+  "social": {
+    "soundcloud": "https://soundcloud.com/",
+    "mixcloud": "https://mixcloud.com/",
+    "twitter": "https://twitter.com"
+  },
   "mixes": [
     {
       "title": "Mix 1",

@@ -88,6 +88,7 @@ export default {
       anchor.href = href;
       anchor.download = href;
       anchor.target = '_blank';
+      anchor.rel = 'noopener';
       document.body.appendChild(anchor);
       anchor.click();
       document.body.removeChild(anchor);
