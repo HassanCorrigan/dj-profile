@@ -49,6 +49,14 @@ export default {
         removeMediaElementOnDestroy: true,
       });
     },
+    async fetchPeaks() {
+      try {
+        const peaks = await fetch(this.currentlyPlaying.peaks);
+        return peaks.json();
+      } catch (error) {
+        console.error(error);
+      }
+    },
     handlePlayBtn() {
       const wavesurfer = this.wavesurfer;
 
@@ -89,11 +97,13 @@ export default {
   },
   watch: {
     currentlyPlaying: function(next, previous) {
-      this.$nextTick(function() {
+      this.$nextTick(async function() {
         /** Create a new instance of wavesurfer */
         this.createWaveSurfer();
 
         const wavesurfer = this.wavesurfer;
+
+        const peaks = await this.fetchPeaks();
 
         /** Load the audio source */
         wavesurfer.load(this.currentlyPlaying.url);
@@ -137,6 +147,8 @@ export default {
   backdrop-filter: blur(0.5rem);
   padding: 1.5rem 1rem;
   z-index: 3;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 .play-button {
   min-width: 6rem;
