@@ -58,6 +58,11 @@ export default {
       return this.cover ? this.cover : require(`@/assets/vinyl.svg`);
     },
     btnIconSrc() {
+      // Check if src is empty
+      if (this.url === '') {
+        return require('@/assets/play-button.svg');
+      }
+
       /** Check if audio is equal to currently playing audio */
       const isPlaying = this.url === this.$store.state.currentlyPlaying.url;
 

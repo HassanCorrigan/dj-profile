@@ -50,6 +50,12 @@ export default {
       });
     },
     async fetchPeaks() {
+      // Check if peaks are defined, return null if they aren't
+      if (this.currentlyPlaying.peaks === '') {
+        return '';
+      }
+
+      // Fetch the data from the url
       try {
         const peaks = await fetch(this.currentlyPlaying.peaks);
         return peaks.json();
@@ -103,10 +109,10 @@ export default {
 
         const wavesurfer = this.wavesurfer;
 
-        const peaks = await this.fetchPeaks();
+        const { data } = await this.fetchPeaks();
 
         /** Load the audio source */
-        wavesurfer.load(this.currentlyPlaying.url);
+        wavesurfer.load(this.currentlyPlaying.url, data);
 
         /** Automatically start playing the audio */
         wavesurfer.play();
