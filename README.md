@@ -14,24 +14,42 @@ npm install
 
 All personal data is saved in the [data.json](./data.json) file. You can customise it with any information you want, including a collection of songs or mixes.
 
+**General**
+
+| Field   | Required | Description                                                             |
+| ------- | -------- | ----------------------------------------------------------------------- |
+| name    | true     | Your DJ/Artist name                                                     |
+| tagline | true     | A personalised tagline e.g. your faviourite genres                      |
+| photo   | false    | A link to a personal photo/logo, a default will be used if not supplied |
+| social  | false    | Links to social profiles/websites, placed in the footer                 |
+
+**Mixes**
+
+| Field  | Required | Description                                                                                                     |
+| ------ | -------- | --------------------------------------------------------------------------------------------------------------- |
+| title  | true     | The audio track title                                                                                           |
+| cover  | false    | The cover/album art, a default will be used if not supplied                                                     |
+| genres | false    | A list of genres                                                                                                |
+| url    | true     | The dropbox url/link to your mix, a dropbox guide is found below                                                |
+| peaks  | false    | If you're using a particularly long audio clip, you can choose to pre-generate the waveform (guide found below) |
+
 ```json
 {
-  "name": "DJ/Artist Name", // Your name
-  "tagline": "A personalised tagline", // Tagline e.g. your faviourite genres
-  "photo": "", // A link to a personal photo/logo, a default will be used if none is supplied
+  "name": "DJ/Artist Name",
+  "tagline": "A personalised tagline",
+  "photo": "",
   "social": {
-    // Social links to your profiles to be placed in the footer
     "soundcloud": "https://soundcloud.com/",
     "mixcloud": "https://mixcloud.com/",
     "twitter": "https://twitter.com"
   },
   "mixes": [
     {
-      "title": "Mix 1", // The audio title
-      "cover": "", // The cover/album art, a default will be used if none is supplied
-      "genres": ["Genre 1", "Genre 2, Genre 3"], // A list of genres
-      "url": "", // The dropbox url/link to your mix, a dropbox guide is found below.
-      "peaks": "" // If you're using a particularly long audio clip, you can choose to pre-generate the waveform. Guide found below
+      "title": "Mix 1",
+      "cover": "",
+      "genres": ["Genre 1", "Genre 2, Genre 3"],
+      "url": "",
+      "peaks": ""
     },
     {
       "title": "Mix 2",

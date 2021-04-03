@@ -15,7 +15,17 @@
     <div class="player">
       <p class="title">{{ currentlyPlaying.title }}</p>
       <div id="waveform" class="waveform"></div>
-      <p class="timecode">{{ currentTime }} / {{ duration }}</p>
+      <div class="controls">
+        <input
+          type="range"
+          class="volume-slider"
+          min="0"
+          max="100"
+          value="50"
+          @input="handleVolumeChange"
+        />
+        <p class="timecode">{{ currentTime }} / {{ duration }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +53,7 @@ export default {
         container: '#waveform',
         responsive: true,
         height: 30,
-        backend: 'MediaElement',
+        backend: 'WebAudio',
         progressColor: '#94369f',
         waveColor: '#cc295a',
         removeMediaElementOnDestroy: true,
@@ -77,6 +87,11 @@ export default {
       /** Toggle the play button */
       this.toggleBtnIcon();
     },
+    handleVolumeChange(e) {
+      const volume = e.target.value / 100;
+      this.wavesurfer.setVolume(volume);
+      localStorage.setItem('audio-player-volume', volume);
+    },
     toggleBtnIcon() {
       this.wavesurfer.isPlaying()
         ? (this.playBtnSrc = 'pause-button.svg')
@@ -100,6 +115,10 @@ export default {
     showPlayer() {
       return this.wavesurfer !== null;
     },
+    getVolumeFromLocalStorage() {
+      const localVolume = localStorage.getItem('audio-player-volume') * 100;
+      return localVolume;
+    },
   },
   watch: {
     currentlyPlaying: function(next, previous) {
@@ -114,14 +133,14 @@ export default {
         /** Load the audio source */
         wavesurfer.load(this.currentlyPlaying.url, data);
 
-        /** Automatically start playing the audio */
-        wavesurfer.play();
-
-        /** Toggle the play button */
-        this.toggleBtnIcon();
-
         /** Wait for the wavesurfer instance to be ready, */
         wavesurfer.on('ready', () => {
+          /** Automatically start playing the audio */
+          wavesurfer.play();
+
+          /** Toggle the play button */
+          this.toggleBtnIcon();
+
           /** Set the audio duration */
           this.duration = this.formatTime(wavesurfer.getDuration());
         });
@@ -184,9 +203,13 @@ export default {
   min-height: 3rem;
   border-radius: var(--border-radius);
 }
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .timecode {
   color: var(--light-text-color);
-  text-align: right;
   line-height: 1.5rem;
 }
 </style>
