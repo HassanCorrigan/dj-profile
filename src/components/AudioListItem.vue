@@ -55,7 +55,9 @@ export default {
   computed: {
     /** Return defined photo, otherwise return a fallback */
     coverPhoto() {
-      return this.cover ? this.cover : require(`@/assets/vinyl.svg`);
+      return this.cover
+        ? this.transformURL(this.cover)
+        : require(`@/assets/vinyl.svg`);
     },
     btnIconSrc() {
       // Check if src is empty
@@ -81,17 +83,25 @@ export default {
         peaks: this.peaks,
       });
     },
+    /** Transforms the URL into a static dropbox link */
+    transformURL(url) {
+      /** Check if URL is blank */
+      if (url === '') {
+        return null;
+      }
+      /** Construct and return the download url */
+      const baseURL = 'https://dl.dropboxusercontent.com';
+      const { pathname } = new URL(url);
+
+      const staticURL = `${baseURL}${pathname}`;
+
+      return staticURL;
+    },
     downloadAudio() {
-      /** Construct the download url */
-      const baseURL = 'https://www.dropbox.com';
-      const { pathname } = new URL(this.url);
-
-      const href = `${baseURL}${pathname}`;
-
       /** Simulate a user clicking a download link */
       const anchor = document.createElement('a');
-      anchor.href = href;
-      anchor.download = href;
+      anchor.href = this.url;
+      anchor.download = this.url;
       anchor.target = '_blank';
       anchor.rel = 'noopener';
       document.body.appendChild(anchor);

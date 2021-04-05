@@ -1,17 +1,10 @@
 <template>
   <div class="audio-player" v-show="showPlayer">
-    <button
-      @click="handlePlayBtn"
-      class="play-button"
-      :style="{ backgroundImage: `url(${currentlyPlaying.cover})` }"
-      title="Play/Pause"
-    >
-      <img
-        class="play-button-icon"
-        :src="require(`@/assets/${playBtnSrc}`)"
-        alt="Play Button"
-      />
-    </button>
+    <PlayButton
+      :cover="transformURL(currentlyPlaying.cover)"
+      :wavesurfer="wavesurfer"
+      ref="playButton"
+    />
     <div class="player">
       <p class="title">{{ currentlyPlaying.title }}</p>
       <div id="waveform" class="waveform"></div>
@@ -32,13 +25,16 @@
 
 <script>
 import WaveSurfer from 'wavesurfer.js';
+import PlayButton from './AudioPlayer/PlayButton';
 
 export default {
   name: 'AudioPlayer',
+  components: {
+    PlayButton,
+  },
   data() {
     return {
       wavesurfer: null,
-      playBtnSrc: 'play-button.svg',
       currentTime: this.formatTime(0),
       duration: this.formatTime(0),
     };
@@ -59,6 +55,20 @@ export default {
         removeMediaElementOnDestroy: true,
       });
     },
+    /** Transforms the URL into a static dropbox link */
+    transformURL(url) {
+      /** Check if URL is blank */
+      if (url === '') {
+        return null;
+      }
+      /** Construct and return the download url */
+      const baseURL = 'https://dl.dropboxusercontent.com';
+      const { pathname } = new URL(url);
+
+      const staticURL = `${baseURL}${pathname}`;
+
+      return staticURL;
+    },
     async fetchPeaks() {
       // Check if peaks are defined, return null if they aren't
       if (this.currentlyPlaying.peaks === '') {
@@ -67,38 +77,24 @@ export default {
 
       // Fetch the data from the url
       try {
-        const peaks = await fetch(this.currentlyPlaying.peaks);
+        const url = this.transformURL(this.currentlyPlaying.peaks);
+        const peaks = await fetch(url);
         return peaks.json();
       } catch (error) {
         console.error(error);
       }
-    },
-    handlePlayBtn() {
-      const wavesurfer = this.wavesurfer;
-
-      /** If there is no audio loaded, return */
-      if (wavesurfer === null) {
-        return;
-      }
-
-      /** Toggle play/pause */
-      wavesurfer.playPause();
-
-      /** Toggle the play button */
-      this.toggleBtnIcon();
     },
     handleVolumeChange(e) {
       const volume = e.target.value / 100;
       this.wavesurfer.setVolume(volume);
       localStorage.setItem('audio-player-volume', volume);
     },
-    toggleBtnIcon() {
-      this.wavesurfer.isPlaying()
-        ? (this.playBtnSrc = 'pause-button.svg')
-        : (this.playBtnSrc = 'play-button.svg');
-    },
     formatTime(seconds) {
       return new Date(seconds * 1000).toISOString().substr(11, 8);
+    },
+    getVolumeFromLocalStorage() {
+      const localVolume = localStorage.getItem('audio-player-volume') * 100;
+      return localVolume;
     },
   },
   computed: {
@@ -115,23 +111,19 @@ export default {
     showPlayer() {
       return this.wavesurfer !== null;
     },
-    getVolumeFromLocalStorage() {
-      const localVolume = localStorage.getItem('audio-player-volume') * 100;
-      return localVolume;
-    },
   },
   watch: {
-    currentlyPlaying: function(next, previous) {
+    currentlyPlaying: function() {
       this.$nextTick(async function() {
         /** Create a new instance of wavesurfer */
         this.createWaveSurfer();
 
         const wavesurfer = this.wavesurfer;
-
-        const { data } = await this.fetchPeaks();
+        const url = this.transformURL(this.currentlyPlaying.url);
+        const { data } = this.fetchPeaks();
 
         /** Load the audio source */
-        wavesurfer.load(this.currentlyPlaying.url, data);
+        wavesurfer.load(url, data);
 
         /** Wait for the wavesurfer instance to be ready, */
         wavesurfer.on('ready', () => {
@@ -139,7 +131,7 @@ export default {
           wavesurfer.play();
 
           /** Toggle the play button */
-          this.toggleBtnIcon();
+          this.$refs.playButton.toggleBtnIcon();
 
           /** Set the audio duration */
           this.duration = this.formatTime(wavesurfer.getDuration());
@@ -152,7 +144,7 @@ export default {
 
         /** Change back to play button icon after audio ends */
         wavesurfer.on('finish', () => {
-          this.toggleBtnIcon();
+          this.$refs.playButton.toggleBtnIcon();
         });
       });
     },
@@ -174,21 +166,6 @@ export default {
   z-index: 3;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
-}
-.play-button {
-  min-width: 6rem;
-  min-height: 6rem;
-  color: var(--secondary-color);
-  background-color: var(--primary-background-color);
-  border-radius: var(--border-radius);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-.play-button-icon {
-  background-color: rgb(240, 240, 240);
-  border-radius: 50%;
-  padding: 0.75rem;
 }
 .player {
   width: 100%;

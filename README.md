@@ -12,7 +12,7 @@ npm install
 
 ### User data
 
-All personal data is saved in the [data.json](./data.json) file. You can customise it with any information you want, including a collection of songs or mixes.
+All personal data is saved in the [data.json](data.json) file. You can customise it with any information you want, including a collection of songs or mixes.
 
 **General**
 
@@ -89,11 +89,9 @@ All personal data is saved in the [data.json](./data.json) file. You can customi
 
 As this project runs on the client and requires no server setup or configuration, a storage solution for your audio is required.
 
-This project uses dropbox to store audio links. To setup, first upload your chosen audio to dropbox. Click share link to generate a link for the file. Then, replace the main url with `dl.dropboxusercontent.com`. For Example:
+This project uses dropbox to store audio links. To setup, first upload your chosen audio to dropbox. Click share link to generate a link for the file.
 
-`https://www.dropbox.com/s/yaanadgsfsfsd3esi/MyProfilePhoto.jpg`
-
-`https://dl.dropboxusercontent.com/s/yaanadgsfsfsd3esi/MyProfilePhoto.jpg`
+Add these links for your audio source and photos in the [data.json](data.json) file.
 
 ### Pre-generated waveforms
 
