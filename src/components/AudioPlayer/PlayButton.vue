@@ -41,9 +41,18 @@ export default {
       this.toggleBtnIcon();
     },
     toggleBtnIcon() {
+      /** Toggles the play button icon depending on if audio is playing */
       this.wavesurfer.isPlaying()
         ? (this.playBtnSrc = 'pause-button.svg')
         : (this.playBtnSrc = 'play-button.svg');
+    },
+  },
+  watch: {
+    wavesurfer: function() {
+      /** Change back to play button icon after audio ends */
+      this.wavesurfer.on('finish', () => {
+        this.toggleBtnIcon();
+      });
     },
   },
 };

@@ -5,19 +5,15 @@
       :wavesurfer="wavesurfer"
       ref="playButton"
     />
-    <div class="player">
+
+    <div class="player-body">
       <p class="title">{{ currentlyPlaying.title }}</p>
+
       <div id="waveform" class="waveform"></div>
+
       <div class="controls">
-        <input
-          type="range"
-          class="volume-slider"
-          min="0"
-          max="100"
-          value="50"
-          @input="handleVolumeChange"
-        />
-        <p class="timecode">{{ currentTime }} / {{ duration }}</p>
+        <VolumeSlider :wavesurfer="wavesurfer" />
+        <TimeCode :wavesurfer="wavesurfer" />
       </div>
     </div>
   </div>
@@ -26,26 +22,28 @@
 <script>
 import WaveSurfer from 'wavesurfer.js';
 import PlayButton from './AudioPlayer/PlayButton';
+import VolumeSlider from './AudioPlayer/VolumeSlider';
+import TimeCode from './AudioPlayer/TimeCode';
 
 export default {
   name: 'AudioPlayer',
   components: {
     PlayButton,
+    VolumeSlider,
+    TimeCode,
   },
   data() {
     return {
       wavesurfer: null,
-      currentTime: this.formatTime(0),
-      duration: this.formatTime(0),
     };
   },
   methods: {
     createWaveSurfer() {
-      /** Reset by removing the old wavesurfer if one exists */
+      /** Reset by removing the old wavesurfer object if one exists */
       this.wavesurfer !== null && this.wavesurfer.destroy();
 
       /** Create a new wavesurfer instance */
-      this.wavesurfer = WaveSurfer.create({
+      return WaveSurfer.create({
         container: '#waveform',
         responsive: true,
         height: 30,
@@ -61,7 +59,7 @@ export default {
       if (url === '') {
         return null;
       }
-      /** Construct and return the download url */
+      /** Construct and return the dropbox url */
       const baseURL = 'https://dl.dropboxusercontent.com';
       const { pathname } = new URL(url);
 
@@ -70,31 +68,25 @@ export default {
       return staticURL;
     },
     async fetchPeaks() {
-      // Check if peaks are defined, return null if they aren't
+      // Check if peaks are defined, return blank if they aren't
       if (this.currentlyPlaying.peaks === '') {
         return '';
       }
 
-      // Fetch the data from the url
+      // Fetch the peaks data from the url
       try {
         const url = this.transformURL(this.currentlyPlaying.peaks);
         const peaks = await fetch(url);
-        return peaks.json();
+
+        const { data } = await peaks.json();
+        return data;
       } catch (error) {
         console.error(error);
       }
     },
-    handleVolumeChange(e) {
-      const volume = e.target.value / 100;
-      this.wavesurfer.setVolume(volume);
-      localStorage.setItem('audio-player-volume', volume);
-    },
-    formatTime(seconds) {
-      return new Date(seconds * 1000).toISOString().substr(11, 8);
-    },
     getVolumeFromLocalStorage() {
-      const localVolume = localStorage.getItem('audio-player-volume') * 100;
-      return localVolume;
+      /** Wavesurfer excepts volume value between 0-1) */
+      return localStorage.getItem('audio-player-volume') / 100 || 0.5;
     },
   },
   computed: {
@@ -113,39 +105,26 @@ export default {
     },
   },
   watch: {
-    currentlyPlaying: function() {
-      this.$nextTick(async function() {
-        /** Create a new instance of wavesurfer */
-        this.createWaveSurfer();
+    currentlyPlaying: async function() {
+      /** Create a new instance of wavesurfer */
+      this.wavesurfer = this.createWaveSurfer();
 
-        const wavesurfer = this.wavesurfer;
-        const url = this.transformURL(this.currentlyPlaying.url);
-        const { data } = this.fetchPeaks();
+      const url = this.transformURL(this.currentlyPlaying.url);
+      const peaks = await this.fetchPeaks();
+      const volume = this.getVolumeFromLocalStorage();
 
-        /** Load the audio source */
-        wavesurfer.load(url, data);
+      /** Load the audio source */
+      this.wavesurfer.load(url, peaks);
 
-        /** Wait for the wavesurfer instance to be ready, */
-        wavesurfer.on('ready', () => {
-          /** Automatically start playing the audio */
-          wavesurfer.play();
+      /** Wait for the wavesurfer instance to be ready, */
+      this.wavesurfer.on('ready', () => {
+        /** Automatically start playing the audio */
+        this.wavesurfer.play();
 
-          /** Toggle the play button */
-          this.$refs.playButton.toggleBtnIcon();
+        this.wavesurfer.setVolume(volume);
 
-          /** Set the audio duration */
-          this.duration = this.formatTime(wavesurfer.getDuration());
-        });
-
-        wavesurfer.on('audioprocess', () => {
-          /** Set the current time while the audio is playing */
-          this.currentTime = this.formatTime(wavesurfer.getCurrentTime());
-        });
-
-        /** Change back to play button icon after audio ends */
-        wavesurfer.on('finish', () => {
-          this.$refs.playButton.toggleBtnIcon();
-        });
+        /** Toggle the play button */
+        this.$refs.playButton.toggleBtnIcon();
       });
     },
   },
@@ -167,7 +146,7 @@ export default {
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
 }
-.player {
+.player-body {
   width: 100%;
   margin-left: 0.75rem;
 }
@@ -184,9 +163,5 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.timecode {
-  color: var(--light-text-color);
-  line-height: 1.5rem;
 }
 </style>

@@ -12,7 +12,7 @@ npm install
 
 ### User data
 
-All personal data is saved in the [data.json](data.json) file. You can customise it with any information you want, including a collection of songs or mixes.
+All personal data is saved in the [data.json](./src/data.json) file. You can customise it with any information you want, including a collection of songs or mixes.
 
 **General**
 
@@ -91,13 +91,13 @@ As this project runs on the client and requires no server setup or configuration
 
 This project uses dropbox to store audio links. To setup, first upload your chosen audio to dropbox. Click share link to generate a link for the file.
 
-Add these links for your audio source and photos in the [data.json](data.json) file.
+Add these links for your audio source and photos in the [data.json](./src/data.json) file.
 
 ### Pre-generated waveforms
 
 If you are planning to host longer audio sources, and are concerned about the performance impact of rendering the waveform on track load, you can instead pre-generate the waveform and serve that data instead.
 
-Wavesurfer.js is used for generating the audio waveforms, they have a guide on how to pre-generate the peaks file required.
+Wavesurfer.js is used for generating the audio waveforms, they have a guide on how to pre-generate the peaks file required available [here](https://wavesurfer-js.org/faq/).
 
 ## Development
 
