@@ -9,40 +9,40 @@
   },
   "mixes": [
     {
-      "title": "Mix 1",
-      "cover": "",
-      "genres": ["Genre 1", "Genre 2, Genre 3"],
-      "url": "",
+      "title": "StoneBridge - Hed Kandi (Japan 425)",
+      "cover": "https://www.dropbox.com/s/fnanik3u2uzfphg/StoneBridge.jpg",
+      "genres": ["Hed Kandi", "House"],
+      "url": "https://www.dropbox.com/s/7irx7ox5ycagcg4/StoneBridge%20-%20Hed%20Kandi%20%28Japan%20425%29.mp3",
       "peaks": ""
     },
     {
-      "title": "Mix 2",
-      "cover": "",
-      "genres": ["Genre 1", "Genre 2, Genre 3"],
-      "url": "",
-      "peaks": ""
-    },
-    {
-      "title": "Mix 3",
-      "cover": "",
-      "genres": ["Genre 1", "Genre 2, Genre 3"],
-      "url": "",
+      "title": "StoneBridge - The StoneBridge Show (278)",
+      "cover": "https://www.dropbox.com/s/fnanik3u2uzfphg/StoneBridge.jpg",
+      "genres": ["House", "Dance"],
+      "url": "https://www.dropbox.com/s/ry7jvbxkjbofxkm/StoneBridge%20-%20The%20StoneBridge%20Show%20%28278%29.mp3",
       "peaks": ""
     }
   ],
   "songs": [
     {
-      "title": "Song 1",
-      "cover": "",
-      "genres": ["Genre 1", "Genre 2"],
-      "url": "",
+      "title": "Marc Burt - Turbulence (2020 Remix)",
+      "cover": "https://www.dropbox.com/s/9hpmeic3qzk72w2/Marc%20Burt%20-%20Landscapes.jpeg",
+      "genres": ["Electronic", "House", "Piano"],
+      "url": "https://www.dropbox.com/s/jazs1vgmhkpqfg5/Marc%20Burt%20-%20Turbulence%20%282020%20Remix%29.mp3",
       "peaks": ""
     },
     {
-      "title": "Song 2",
-      "cover": "",
-      "genres": ["Genre 1", "Genre 2"],
-      "url": "",
+      "title": "Marc Burt - Last Flight Home (Remix)",
+      "cover": "https://www.dropbox.com/s/9hpmeic3qzk72w2/Marc%20Burt%20-%20Landscapes.jpeg",
+      "genres": ["Electronic", "House", "Chill-Out"],
+      "url": "https://www.dropbox.com/s/5oy8uvgfc5a2fg2/Marc%20Burt%20-%20Last%20Flight%20Home%20%28Remix%29.mp3",
+      "peaks": ""
+    },
+    {
+      "title": "Marc Burt - Caledonia (Edit)",
+      "cover": "https://www.dropbox.com/s/9hpmeic3qzk72w2/Marc%20Burt%20-%20Landscapes.jpeg",
+      "genres": ["Electronic", "House", "Dance"],
+      "url": "https://www.dropbox.com/s/t9jefo92egs27sl/Marc%20Burt%20-%20Caledonia%20%28Edit%29.mp3",
       "peaks": ""
     }
   ]

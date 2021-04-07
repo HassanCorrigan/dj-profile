@@ -114,3 +114,7 @@ Compiles and minifies the project for production
 ```
 npm run build
 ```
+
+## Credits
+
+Sample music provided by the [Free Music Archive](https://freemusicarchive.org/music/Marc_Burt/landscapes) and [Mixing.dj](https://mixing.dj/?s=stonebridge).

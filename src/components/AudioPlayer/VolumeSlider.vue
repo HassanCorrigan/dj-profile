@@ -81,4 +81,14 @@ export default {
 .volume-slider {
   outline: none;
 }
+.volume-slider:disabled {
+  cursor: not-allowed;
+}
+
+/** Change icon color for dark backgrounds */
+@media (prefers-color-scheme: dark) {
+  .volume-icon {
+    filter: invert(0.9);
+  }
+}
 </style>
