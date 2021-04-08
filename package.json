@@ -1,7 +1,10 @@
 {
   "name": "dj-profile",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "private": true,
+  "description": "A profile for artists/DJ's to promote their music online.",
+  "author": "Hassan Corrigan <github@hassancorrigan.com>",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

@@ -12,7 +12,7 @@ npm install
 
 ### User data
 
-All personal data is saved in the [data.json](./src/data.json) file. You can customise it with any information you want, including a collection of songs or mixes.
+All personal data is saved in the [data.json](./src/data.json) file. You can customize it with any information you want to include, such as a collection of songs or mixes.
 
 **General**
 
@@ -33,6 +33,8 @@ All personal data is saved in the [data.json](./src/data.json) file. You can cus
 | url    | true     | The dropbox url/link to your mix, a dropbox guide is found below                                                |
 | peaks  | false    | If you're using a particularly long audio clip, you can choose to pre-generate the waveform (guide found below) |
 
+**The data.json file**
+
 ```json
 {
   "name": "DJ/Artist Name",
@@ -47,21 +49,21 @@ All personal data is saved in the [data.json](./src/data.json) file. You can cus
     {
       "title": "Mix 1",
       "cover": "",
-      "genres": ["Genre 1", "Genre 2, Genre 3"],
+      "genres": ["Genre 1", "Genre 2", "Genre 3"],
       "url": "",
       "peaks": ""
     },
     {
       "title": "Mix 2",
       "cover": "",
-      "genres": ["Genre 1", "Genre 2, Genre 3"],
+      "genres": ["Genre 1", "Genre 2"],
       "url": "",
       "peaks": ""
     },
     {
       "title": "Mix 3",
       "cover": "",
-      "genres": ["Genre 1", "Genre 2, Genre 3"],
+      "genres": ["Genre 1", "Genre 2", "Genre 3"],
       "url": "",
       "peaks": ""
     }
@@ -91,13 +93,13 @@ As this project runs on the client and requires no server setup or configuration
 
 This project uses dropbox to store audio links. To setup, first upload your chosen audio to dropbox. Click share link to generate a link for the file.
 
-Add these links for your audio source and photos in the [data.json](./src/data.json) file.
+Add these links for your audio sources, photos, covers and peaks in the [data.json](./src/data.json) file.
 
 ### Pre-generated waveforms
 
 If you are planning to host longer audio sources, and are concerned about the performance impact of rendering the waveform on track load, you can instead pre-generate the waveform and serve that data instead.
 
-Wavesurfer.js is used for generating the audio waveforms, they have a guide on how to pre-generate the peaks file required available [here](https://wavesurfer-js.org/faq/).
+Wavesurfer.js is used for generating the audio waveforms, they have a guide on how to pre-generate the peaks file required, available [here](https://wavesurfer-js.org/faq/).
 
 ## Development
 
@@ -118,3 +120,5 @@ npm run build
 ## Credits
 
 Sample music provided by the [Free Music Archive](https://freemusicarchive.org/music/Marc_Burt/landscapes) and [Mixing.dj](https://mixing.dj/?s=stonebridge).
+
+Icons are open-source and available at [akaricons.com](https://akaricons.com/).
