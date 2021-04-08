@@ -28,10 +28,28 @@ export default {
       songsCount,
     };
   },
+  methods: {
+    /** Transforms the URL into a static dropbox link */
+    transformURL(url) {
+      /** Check if URL is blank */
+      if (url === '') {
+        return null;
+      }
+      /** Construct and return the dropbox url */
+      const baseURL = 'https://dl.dropboxusercontent.com';
+      const { pathname } = new URL(url);
+
+      const staticURL = `${baseURL}${pathname}`;
+
+      return staticURL;
+    },
+  },
   computed: {
     /** Return defined photo, otherwise return a fallback */
     profilePhoto() {
-      return this.photo ? this.photo : require(`@/assets/vinyl.svg`);
+      return this.photo
+        ? this.transformURL(this.photo)
+        : require(`@/assets/vinyl.svg`);
     },
   },
 };
