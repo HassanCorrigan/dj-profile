@@ -61,7 +61,7 @@ button:hover {
     --secondary-color: rgb(245, 245, 245);
     --secondary-background-color: rgb(34, 34, 34);
     --transparent-background-color: rgba(34, 34, 34, 0.75);
-    --light-text-color: rgb(160, 160, 160);
+    --light-text-color: rgb(170, 170, 170);
     --box-shadow-color: rgb(3, 3, 3);
   }
 }

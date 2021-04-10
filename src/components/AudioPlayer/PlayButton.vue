@@ -74,4 +74,10 @@ export default {
   border-radius: 50%;
   padding: 0.75rem;
 }
+
+@media (prefers-color-scheme: dark) {
+  .play-button-icon {
+    filter: invert(0.85);
+  }
+}
 </style>
