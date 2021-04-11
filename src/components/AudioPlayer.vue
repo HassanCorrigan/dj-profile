@@ -85,7 +85,10 @@ export default {
       }
     },
     getVolumeFromLocalStorage() {
-      /** Wavesurfer excepts volume value between 0-1) */
+      /**
+       * Must be dived by 100 as wavesurfer excepts volume value between 0-1).
+       * Returns 0.5 as default if no local volume is found.
+       */
       return localStorage.getItem('audio-player-volume') / 100 || 0.5;
     },
   },
@@ -126,6 +129,9 @@ export default {
         /** Toggle the play button */
         this.$refs.playButton.toggleBtnIcon();
       });
+
+      /** Log any errors */
+      this.wavesurfer.on('error', error => console.error(error));
     },
   },
 };
