@@ -72,17 +72,82 @@ export default {
   align-items: center;
 }
 .volume-icon {
-  margin-right: 0.5rem;
   color: var(--light-text-color);
   -webkit-appearance: none;
   width: 100%;
   cursor: pointer;
 }
+
+/* Custom volume slider */
 .volume-slider {
+  margin: 0 1rem;
+  cursor: pointer;
+
   outline: none;
+  -webkit-appearance: none;
+  background: transparent;
 }
-.volume-slider:disabled {
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.5rem;
+  width: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--highlight-color);
+
+  margin-top: -0.6rem;
+}
+.volume-slider::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 1.5rem;
+  width: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--highlight-color);
+}
+.volume-slider::-ms-thumb {
+  -webkit-appearance: none;
+  height: 1.5rem;
+  width: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--highlight-color);
+}
+.volume-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.25rem;
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+}
+.volume-slider::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+
+  width: 100%;
+  height: 0.25rem;
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+}
+
+/* Muted/disabled volume slider */
+.volume-slider[disabled] {
   cursor: not-allowed;
+}
+.volume-slider[disabled]::-webkit-slider-thumb {
+  background-color: var(--light-text-color);
+}
+.volume-slider[disabled]::-moz-range-thumb {
+  background-color: var(--light-text-color);
+}
+.volume-slider[disabled]::-ms-thumb {
+  background-color: var(--light-text-color);
+}
+.volume-slider[disabled]::-webkit-slider-runnable-track {
+  background-color: var(--light-text-color);
+}
+.volume-slider[disabled]::-ms-track {
+  background-color: var(--light-text-color);
 }
 
 /** Change icon color for dark backgrounds */
