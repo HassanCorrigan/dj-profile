@@ -14,10 +14,10 @@
   "dependencies": {
     "vue": "^3.0.11",
     "vuex": "^4.0.0",
-    "wavesurfer.js": "^4.6.0"
+    "wavesurfer.js": "^5.0.1"
   },
   "devDependencies": {
-    "@vue/cli-service": "^4.5.12",
+    "@vue/cli-service": "^4.5.13",
     "@vue/compiler-sfc": "^3.0.11"
   }
 }
