@@ -14,7 +14,7 @@
   "dependencies": {
     "vue": "^3.2.31",
     "vuex": "^4.0.2",
-    "wavesurfer.js": "^6.0.2"
+    "wavesurfer.js": "^6.0.4"
   },
   "devDependencies": {
     "@vue/cli-service": "^5.0.1",
