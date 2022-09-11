@@ -12,12 +12,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "vue": "^3.2.39",
     "vuex": "^4.0.2",
     "wavesurfer.js": "^6.2.0"
   },
   "devDependencies": {
     "@vue/cli-service": "^5.0.8",
-    "@vue/compiler-sfc": "^3.2.39",
-    "vue": "^3.2.39"
+    "@vue/compiler-sfc": "^3.2.39"
   }
 }
